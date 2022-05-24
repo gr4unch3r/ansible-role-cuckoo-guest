@@ -52,7 +52,7 @@ jobs:
         uses: atlassian/gajira-create@master
         if: ${{ success() }}   
         with:
-          project: ARCS
+          project: ARCG
           issuetype: Build
           summary: |
             Build completed for ${{ github.repository }}
@@ -61,7 +61,7 @@ jobs:
         uses: atlassian/gajira-create@master
         if: ${{ failure() }}  
         with:
-          project: ARCS
+          project: ARCG
           issuetype: Build
           summary: |
             Build failed for ${{ github.repository }}

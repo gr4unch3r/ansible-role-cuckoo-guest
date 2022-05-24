@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: cuckoo_sandbox
+  role_name: cuckoo_guest
   author: gr4unch3r
   description: Provision a Cuckoo Sandbox guest
   license: MIT

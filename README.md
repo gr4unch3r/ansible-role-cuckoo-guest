@@ -1,4 +1,4 @@
-# Ansible Role Cuckoo Sandbox
+# Ansible Role Cuckoo Guest
 
 [![CI](https://github.com/gr4unch3r/ansible-role-cuckoo-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/gr4unch3r/ansible-role-cuckoo-sandbox/actions/workflows/ci.yml)
 
@@ -16,7 +16,7 @@ Ansible role to provision a [Cuckoo Sandbox](https://cuckoosandbox.org/) guest.
 ```
 - hosts: all
   roles:
-    - gr4unch3r.cuckoo_sandbox
+    - gr4unch3r.cuckoo_guest
 ```
 
 ## License
