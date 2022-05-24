@@ -1,0 +1,107 @@
+---
+- name: Disabling Windows Updates
+  ansible.windows.win_service:
+    name: wuauserv
+    start_mode: disabled
+    state: stopped
+
+- name: Ensuring Windows Update is disabled
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Services\wuauserv
+    name: Start
+    data: 4
+    type: dword
+
+- name: Disabling firewall
+  community.windows.win_firewall:
+    state: disabled
+    profiles:
+    - Domain
+    - Private
+    - Public
+
+- name: Disabling Defender
+  ansible.windows.win_regedit:
+    path: HKLM:\Software\Policies\Microsoft\Windows Defender
+    name: DisableAntiSpyware
+    data: 1
+    type: dword
+
+- name: Installing Choco packages
+  chocolatey.chocolatey.win_chocolatey:
+    name:
+    - adobereader
+    - firefox
+    - googlechrome
+    - python2
+    state: present
+
+- name: Downloading get-pip.py
+  ansible.windows.win_get_url:
+    url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
+    dest: C:\Users\user\vagrant\Downloads\get-pip.py
+
+- name: Installing Pip
+  ansible.windows.win_shell: C:\Python27\python.exe get-pip.py
+  args:
+    chdir: C:\Users\user\vagrant\Downloads
+
+- name: Removing get-pip.py
+  ansible.windows.win_file:
+    path: C:\Users\user\vagrant\Downloads\get-pip.py
+    state: absent
+
+- name: Installing Pillow
+  ansible.windows.win_shell: C:\Python27\python.exe -m pip install Pillow==6.0.0
+
+- name: Installing Cuckoo agent
+  ansible.windows.win_get_url:
+    url: https://raw.githubusercontent.com/cuckoosandbox/cuckoo/2.0-rc2/agent/agent.py
+    dest: C:\Users\vagrant\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\spy.pyw
+
+- name: Enabling autologon
+  community.windows.win_auto_logon:
+    username: vagrant
+    password: vagrant
+
+- name: Enabling RPC
+  ansible.windows.win_regedit:
+    path: HKLM:\System\CurrentControlSet\Control\TerminalServer
+    name: AllowRemoteRPC
+    data: 1
+    type: dword
+
+- name: Enabling RPC
+  ansible.windows.win_regedit:
+    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System
+    name: LocalAccountTokenFilterPolicy
+    data: 1
+    type: dword
+
+- name: Setting internal network gateway for inetsim routing
+  ansible.windows.win_shell: Remove-NetIPAddress 192.168.30.101 -Confirm:$false
+
+- name: Setting internal network gateway for inetsim routing
+  ansible.windows.win_shell: New-NetIPAddress -InterfaceAlias 'Ethernet 2' -IPAddress '192.168.30.101' -PrefixLength 24 -DefaultGateway '192.168.30.100'
+
+- name: Setting DNS for inetsim routing
+  ansible.windows.win_dns_client:
+    adapter_names: 'Ethernet 2'
+    dns_servers: 192.168.30.100
+
+- name: Disabling probing
+  ansible.windows.win_regedit:
+    path: HKLM:\System\CurrentControlSet\Services\NlaSvc\Parameters\Internet
+    name: EnableActiveProbing
+    data: 0
+    type: dword
+
+- name: Killing OneDrive
+  ansible.windows.win_shell: taskkill /f /im OneDrive.exe
+
+- name: Uninstalling OneDrive
+  ansible.windows.win_package:
+    path: C:\Windows\SysWOW64\OneDriveSetup.exe
+    product_id: OneDrive
+    arguments:
+    - /uninstall

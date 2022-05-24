@@ -1,0 +1,14 @@
+galaxy_info:
+  role_name: cuckoo_sandbox
+  author: gr4unch3r
+  description: Provision a Cuckoo Sandbox guest
+  license: MIT
+  min_ansible_version: '2.1'
+  platforms:
+    - name: Windows
+      versions:
+        - all
+  galaxy_tags:
+    - windows
+    - security
+dependencies: []
