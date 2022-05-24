@@ -35,6 +35,7 @@
     - googlechrome
     - python2
     state: present
+    ignore_checksums: true
 
 - name: Downloading get-pip.py
   ansible.windows.win_get_url:
