@@ -97,12 +97,7 @@
     data: 0
     type: dword
 
-- name: Killing OneDrive
-  ansible.windows.win_shell: taskkill /f /im OneDrive.exe
-
-- name: Uninstalling OneDrive
+- name: Removing OneDrive
   ansible.windows.win_package:
-    path: C:\Windows\SysWOW64\OneDriveSetup.exe
     product_id: OneDrive
-    arguments:
-    - /uninstall
+    state: absent
