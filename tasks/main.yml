@@ -99,5 +99,7 @@
 
 - name: Removing OneDrive
   ansible.windows.win_package:
+    path: C:\Windows\SysWOW64\OneDriveSetup.exe
     product_id: OneDrive
+    arguments: /uninstall
     state: absent
