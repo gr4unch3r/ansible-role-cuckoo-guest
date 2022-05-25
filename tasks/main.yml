@@ -88,7 +88,7 @@
 - name: Setting DNS for inetsim routing
   ansible.windows.win_dns_client:
     adapter_names: 'Ethernet 2'
-    dns_servers: 192.168.30.100
+    dns_servers: 192.168.56.100
 
 - name: Disabling probing
   ansible.windows.win_regedit:
