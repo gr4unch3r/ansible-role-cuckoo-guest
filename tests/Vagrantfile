@@ -11,6 +11,7 @@ ENV["VAGRANT_OLD_ENV_OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
 Vagrant.configure("2") do |config|
     config.vm.box = "gr4unch3r/windows-10"
     config.vm.box_version = "10.0.17134"
+    config.vm.network :private_network, ip: "192.168.30.101", gateway: "192.168.30.100", dns: "192.168.30.100"
     config.vm.provider :virtualbox do |v|
       v.gui = false
       v.check_guest_additions = false
