@@ -1,6 +1,6 @@
 # Ansible Role Cuckoo Guest
 
-[![CI](https://github.com/gr4unch3r/ansible-role-cuckoo-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/gr4unch3r/ansible-role-cuckoo-sandbox/actions/workflows/ci.yml)
+[![CI](https://github.com/gr4unch3r/ansible-role-cuckoo-guest/actions/workflows/ci.yml/badge.svg)](https://github.com/gr4unch3r/ansible-role-cuckoo-guest/actions/workflows/ci.yml)
 
 Ansible role to provision a [Cuckoo Sandbox](https://cuckoosandbox.org/) guest.
 
