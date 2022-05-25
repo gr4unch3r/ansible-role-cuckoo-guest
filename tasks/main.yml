@@ -40,16 +40,16 @@
 - name: Downloading get-pip.py
   ansible.windows.win_get_url:
     url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
-    dest: C:\Users\user\vagrant\Downloads\get-pip.py
+    dest: C:\Windows\Temp\get-pip.py
 
 - name: Installing Pip
   ansible.windows.win_shell: C:\Python27\python.exe get-pip.py
   args:
-    chdir: C:\Users\user\vagrant\Downloads
+    chdir: C:\Windows\Temp
 
 - name: Removing get-pip.py
   ansible.windows.win_file:
-    path: C:\Users\user\vagrant\Downloads\get-pip.py
+    path: C:\Windows\Temp\get-pip.py
     state: absent
 
 - name: Installing Pillow
