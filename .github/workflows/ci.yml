@@ -18,6 +18,12 @@ jobs:
       - name: Install Ansible
         run: python3 -m pip install -r tests/requirements.txt
 
+      - name: Fix VirtualBox networking
+        run: cat > /etc/vbox/networks.conf << __VBOX__
+              * 10.0.0.0/8 192.168.0.0/16
+              * 2001::/64
+            __VBOX__
+
       - name: Test role
         run: vagrant up
         working-directory: tests
