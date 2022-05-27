@@ -20,12 +20,29 @@
     - Private
     - Public
 
-- name: Disabling Defender
+- name: Disabling Defender real-time protection
   ansible.windows.win_regedit:
-    path: HKLM:\Software\Policies\Microsoft\Windows Defender
-    name: DisableAntiSpyware
+    path: HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection
+    name: DisableRealtimeMonitoring
     data: 1
     type: dword
+
+- name: Disabling Defender cloud-delivered protection
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet
+    name: SpynetReporting
+    data: 0
+    type: dword
+
+- name: Disabling Defender automatic sample submission
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet
+    name: SubmitSamplesConsent
+    data: 2
+    type: dword
+
+- name: Adding the directory C:\ to the exclusion list
+  ansible.windows.win_shell: Add-MpPreference -ExclusionPath "C:\" -Force
 
 - name: Installing Choco packages
   chocolatey.chocolatey.win_chocolatey:
@@ -89,6 +106,12 @@
   ansible.windows.win_dns_client:
     adapter_names: 'Ethernet 2'
     dns_servers: 192.168.56.100
+
+- name: Removing internet access so malware can't reach out to the internet
+  community.windows.win_net_adapter_feature:
+    interface:
+    - 'Ethernet 3'
+    state: disabled
 
 - name: Disabling probing
   ansible.windows.win_regedit:
