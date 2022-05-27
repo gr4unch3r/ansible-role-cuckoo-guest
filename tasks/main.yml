@@ -112,7 +112,7 @@
     dns_servers: 192.168.56.102
 
 - name: Removing internet access so malware can't reach out to the internet
-  ansible.windows.win_shell: Disable-NetAdapter -Name "Ethernet 3" -Confirm:$False
+  ansible.windows.win_shell: Disable-NetAdapter E*3 -Confirm:$False
 
 - name: Disabling probing
   ansible.windows.win_regedit:
