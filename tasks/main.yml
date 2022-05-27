@@ -41,7 +41,6 @@
     data: 2
     type: dword
 
-
 - name: Setting %SYSTEMDRIVE% fact
   set_fact:
     system_drive: C:\
@@ -102,21 +101,18 @@
     type: dword
 
 - name: Setting internal network gateway for inetsim routing
-  ansible.windows.win_shell: Remove-NetIPAddress 192.168.56.101 -Confirm:$false
+  ansible.windows.win_shell: Remove-NetIPAddress 192.168.56.103 -Confirm:$false
 
 - name: Setting internal network gateway for inetsim routing
-  ansible.windows.win_shell: New-NetIPAddress -InterfaceAlias 'Ethernet 2' -IPAddress '192.168.56.101' -PrefixLength 21 -DefaultGateway '192.168.56.100'
+  ansible.windows.win_shell: New-NetIPAddress -InterfaceAlias 'Ethernet 2' -IPAddress '192.168.56.103' -PrefixLength 21 -DefaultGateway '192.168.56.1'
 
 - name: Setting DNS for inetsim routing
   ansible.windows.win_dns_client:
     adapter_names: 'Ethernet 2'
-    dns_servers: 192.168.56.100
+    dns_servers: 192.168.56.102
 
 - name: Removing internet access so malware can't reach out to the internet
-  community.windows.win_net_adapter_feature:
-    interface:
-    - 'Ethernet 3'
-    state: disabled
+  ansible.windows.win_shell: Disable-NetAdapter -Name "Ethernet 3" -Confirm:$False
 
 - name: Disabling probing
   ansible.windows.win_regedit:
