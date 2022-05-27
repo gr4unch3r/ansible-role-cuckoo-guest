@@ -41,8 +41,13 @@
     data: 2
     type: dword
 
+
+- name: Setting %SYSTEMDRIVE% fact
+  set_fact:
+    system_drive: C:\
+
 - name: Adding the directory C:\ to the exclusion list
-  ansible.windows.win_shell: Add-MpPreference -ExclusionPath "C:\" -Force
+  ansible.windows.win_shell: Add-MpPreference -ExclusionPath "{{ system_drive }}" -Force
 
 - name: Installing Choco packages
   chocolatey.chocolatey.win_chocolatey:
