@@ -111,9 +111,6 @@
     adapter_names: 'Ethernet 2'
     dns_servers: 192.168.56.100
 
-- name: Removing internet access so malware can't reach out to the internet
-  ansible.windows.win_shell: Disable-NetAdapter E*3 -Confirm:$False
-
 - name: Disabling probing
   ansible.windows.win_regedit:
     path: HKLM:\System\CurrentControlSet\Services\NlaSvc\Parameters\Internet
@@ -127,3 +124,6 @@
     product_id: OneDrive
     arguments: /uninstall
     state: absent
+
+- name: Removing internet access so malware can't reach out to the internet
+  ansible.windows.win_shell: Disable-NetAdapter E*3 -Confirm:$False
