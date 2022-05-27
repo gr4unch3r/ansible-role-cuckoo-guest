@@ -104,7 +104,7 @@
   ansible.windows.win_shell: Remove-NetIPAddress 192.168.56.101 -Confirm:$false
 
 - name: Setting internal network gateway for inetsim routing
-  ansible.windows.win_shell: New-NetIPAddress -InterfaceAlias 'Ethernet 2' -IPAddress '192.168.56.101' -PrefixLength 21 -DefaultGateway '192.168.56.100'
+  ansible.windows.win_shell: New-NetIPAddress -InterfaceAlias 'Ethernet 2' -IPAddress '192.168.56.101' -PrefixLength 24 -DefaultGateway '192.168.56.100'
 
 - name: Setting DNS for inetsim routing
   ansible.windows.win_dns_client:
@@ -124,6 +124,3 @@
     product_id: OneDrive
     arguments: /uninstall
     state: absent
-
-- name: Removing internet access so malware can't reach out to the internet
-  ansible.windows.win_shell: Disable-NetAdapter E*3 -Confirm:$False
