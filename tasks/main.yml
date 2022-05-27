@@ -101,15 +101,15 @@
     type: dword
 
 - name: Setting internal network gateway for inetsim routing
-  ansible.windows.win_shell: Remove-NetIPAddress 192.168.56.103 -Confirm:$false
+  ansible.windows.win_shell: Remove-NetIPAddress 192.168.56.101 -Confirm:$false
 
 - name: Setting internal network gateway for inetsim routing
-  ansible.windows.win_shell: New-NetIPAddress -InterfaceAlias 'Ethernet 2' -IPAddress '192.168.56.103' -PrefixLength 21 -DefaultGateway '192.168.56.1'
+  ansible.windows.win_shell: New-NetIPAddress -InterfaceAlias 'Ethernet 2' -IPAddress '192.168.56.101' -PrefixLength 21 -DefaultGateway '192.168.56.100'
 
 - name: Setting DNS for inetsim routing
   ansible.windows.win_dns_client:
     adapter_names: 'Ethernet 2'
-    dns_servers: 192.168.56.102
+    dns_servers: 192.168.56.100
 
 - name: Removing internet access so malware can't reach out to the internet
   ansible.windows.win_shell: Disable-NetAdapter E*3 -Confirm:$False
