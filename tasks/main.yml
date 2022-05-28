@@ -77,8 +77,8 @@
   ansible.windows.win_shell: C:\Python27\python.exe -m pip install Pillow==6.0.0
 
 - name: Installing Cuckoo agent
-  ansible.windows.win_get_url:
-    url: https://raw.githubusercontent.com/cuckoosandbox/cuckoo/2.0-rc2/agent/agent.py
+  ansible.windows.win_copy:
+    src: ../files/agent.py
     dest: C:\Users\vagrant\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\spy.pyw
 
 - name: Enabling autologon
