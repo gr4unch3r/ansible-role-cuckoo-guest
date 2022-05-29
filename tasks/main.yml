@@ -124,3 +124,6 @@
     product_id: OneDrive
     arguments: /uninstall
     state: absent
+
+- name: Rebooting machine to make changes take effect
+  ansible.windows.win_reboot:
